@@ -2,9 +2,9 @@
 
 ![Badge](https://img.shields.io/static/v1?label=PHP&message=7.4&color=777BB4&style=for-the-badge&logo=php&logoColor=777BB4)
 ![Badge](https://img.shields.io/static/v1?label=Laravel&message=8.x&color=ff2d20&style=for-the-badge&logo=laravel&logoColor=ff2d20)
+![Badge](https://img.shields.io/static/v1?label=LICENSE&message=MIT&color=32CD32&style=for-the-badge)
 
-
-## Project created in [The Fullcycle Develop Course](https://fullcycle.com.br/). This application is responsible for managing the video catalog from CodeFlix, a video stream platform like Netflix, Prime Video.  
+## Project created in [The Fullcycle Develop Course](https://fullcycle.com.br/). This application is responsible for managing the video catalog from CodeFlix, a video stream platform like Netflix, Prime Video and similar.  
 
 ### Content Table
 * [Features](#features)
