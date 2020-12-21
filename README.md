@@ -8,8 +8,8 @@
 
 ### Content Table
 * [Features](#features)
-* [Prerequisites](#pre-requisitos)
-* [Rodando a aplicação](#rodando-a-aplicação)
+* [Prerequisites](#prerequisites)
+* [Running the application](#running-the-application)
 
 ### Features
 - [ ] Catalog
@@ -33,10 +33,10 @@ Besides that, we recommend working with a  source-code editor like [VSCode](http
 
 ```bash
 # Clone this repository
-$ git clone <https://github.com/jogga-digital/parceria-digital-moura.git> pdm
+$ git clone <https://github.com/iagoneres/ce-video-catalog> ce-video-catalog
 
 # Access the project folder on terminal/cmd
-$ cd pdm
+$ cd ce-video-catalog
 
 # Create the containers with docker
 $ docker-compose up
