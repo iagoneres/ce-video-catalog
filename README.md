@@ -12,8 +12,8 @@
 * [Running the application](#running-the-application)
 
 ### Features
-- [ ] Catalog
 - [ ] Category
+- [ ] Catalog
 - [ ] Genre
 - [ ] Cast members
 - [ ] Featured Video
