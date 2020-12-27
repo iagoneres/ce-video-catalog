@@ -12,16 +12,8 @@
 * [Running the application](#running-the-application)
 
 ### Features
-- [ ] Category
-- [ ] Catalog
+- [X] Category
 - [ ] Genre
-- [ ] Cast members
-- [ ] Featured Video
-- [ ] My Videos
-- [ ] Subscription
-- [ ] Plan
-- [ ] Client
-- [ ] User
 
 ### Prerequisites
 
