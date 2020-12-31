@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Genre extends AppModel
 {
@@ -16,5 +15,9 @@ class Genre extends AppModel
 
     protected $dates = [
         'deleted_at'
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean'
     ];
 }
