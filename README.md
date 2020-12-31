@@ -12,8 +12,7 @@
 * [Running the application](#running-the-application)
 
 ### Features
-- [X] Category
-- [ ] Genre
+- [Laravel API](www/README.md)
 
 ### Prerequisites
 
