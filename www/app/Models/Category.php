@@ -17,4 +17,8 @@ class Category extends AppModel
     protected $dates = [
         'deleted_at'
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
 }
