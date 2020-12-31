@@ -97,16 +97,17 @@ class CategoryTest extends TestCase
 
     public function testDelete()
     {
-        $category_data = ['name' => 'test', 'description' => 'Test description'];
-        $category = Category::create($category_data);
-        $category->refresh();
+        $category = Category::factory()->create();
         $this->assertTrue($category->delete());
 
-        $not_deleted_category = Category::where('id', $category->id)->first();
+        $not_deleted_category = Category::find($category->id);
         $this->assertNull($not_deleted_category);
 
-        $deleted_category = Category::withTrashed()->where('id', $category->id)->first();
+        $deleted_category = Category::withTrashed()->find($category->id);
         $this->assertNotEquals(null, $deleted_category->deleted_at);
+
+        $category->restore();
+        $this->assertNotNull(Category::find($category->id));
         
     }
 }
