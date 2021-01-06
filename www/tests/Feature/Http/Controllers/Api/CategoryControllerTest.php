@@ -122,6 +122,8 @@ class CategoryControllerTest extends TestCase
         $response = $this->json('GET', route('categories.show', ['category' => $category->id]));
         $response->assertStatus(404);
 
+        $this->assertNotNull(Category::withTrashed()->find($category->id));
+
         $response = $this->json('DELETE', route('categories.destroy', ['category' => $category->id]));
         $response->assertStatus(404);
     }

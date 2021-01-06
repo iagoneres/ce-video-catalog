@@ -101,6 +101,8 @@ class GenreControllerTest extends TestCase
         $response = $this->json('GET', route('genres.show', ['genre' => $genre->id]));
         $response->assertStatus(404);
 
+        $this->assertNotNull(Genre::withTrashed()->find($genre->id));
+
         $response = $this->json('DELETE', route('genres.destroy', ['genre' => $genre->id]));
         $response->assertStatus(404);
     }
