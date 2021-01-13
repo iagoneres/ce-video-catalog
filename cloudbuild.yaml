@@ -14,11 +14,11 @@ steps:
 
 - id: "Copying .env"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'video-catalog-app', 'cp', 'env.example', '.env']
+  args: ['exec', '-t', 'video-catalog-app', 'cp', '.env.example', '.env']
 
 - id: "Copying .env.testing"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'video-catalog-app', 'cp', 'env.testing.example', '.env.testing']
+  args: ['exec', '-t', 'video-catalog-app', 'cp', '.env.testing.example', '.env.testing']
 
 - id: "Running key:generate"
   name: 'gcr.io/cloud-builders/docker'
