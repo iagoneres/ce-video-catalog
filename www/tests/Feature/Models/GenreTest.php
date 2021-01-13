@@ -15,8 +15,8 @@ class GenreTest extends TestCase
 
     public function testCreateValidUuid()
     {
-        $genre_data = ['name' => 'test'];
-        $genre = Genre::create($genre_data);
+        $data = ['name' => 'test'];
+        $genre = Genre::create($data);
         $genre->refresh();
 
         $this->assertTrue(Str::isUuid($genre->id));
@@ -24,25 +24,25 @@ class GenreTest extends TestCase
 
     public function testCreateDefaultFields()
     {
-        $genre_data = ['name' => 'test'];
-        $genre = Genre::create($genre_data);
+        $data = ['name' => 'test'];
+        $genre = Genre::create($data);
         $genre->refresh();
 
-        $this->assertEquals($genre_data['name'], $genre->name);
+        $this->assertEquals($data['name'], $genre->name);
         $this->assertTrue($genre->is_active);
         $this->assertNull($genre->deleted_at);
     }
     
     public function testCreatePersonalizedIsActive()
     {
-        $genre_data = ['name' => 'test_1', 'is_active' => false];
-        $genre = Genre::create($genre_data);
+        $data = ['name' => 'test_1', 'is_active' => false];
+        $genre = Genre::create($data);
         $genre->refresh();
         
         $this->assertFalse($genre->is_active);
 
-        $genre_data = ['name' => 'test_2', 'is_active' => true];
-        $genre = Genre::create($genre_data);
+        $data = ['name' => 'test_2', 'is_active' => true];
+        $genre = Genre::create($data);
         $genre->refresh();
         
         $this->assertTrue($genre->is_active);
@@ -53,10 +53,10 @@ class GenreTest extends TestCase
         Genre::factory()->count(1)->create();
         $fields = ['id', 'name', 'is_active', 'created_at', 'updated_at', 'deleted_at'];
         $genres = Genre::all();
-        $genre_key = array_keys($genres->first()->getAttributes());
+        $genreKey = array_keys($genres->first()->getAttributes());
 
         $this->assertCount(1, $genres);
-        $this->assertEqualsCanonicalizing($fields, $genre_key);
+        $this->assertEqualsCanonicalizing($fields, $genreKey);
     }
 
     public function testUpdate()
@@ -65,13 +65,13 @@ class GenreTest extends TestCase
             'is_active' => false
         ]);
 
-        $update_data = [
+        $data = [
             'name' => 'test name updated',
             'is_active' => true
         ];
-        $genre->update($update_data);
+        $genre->update($data);
 
-        foreach($update_data as $key => $value) {
+        foreach($data as $key => $value) {
             $this->assertEquals($value, $genre->{$key});
         }
     }
@@ -81,11 +81,11 @@ class GenreTest extends TestCase
         $genre = Genre::factory()->create();
         $this->assertTrue($genre->delete());
 
-        $not_deleted_genre = Genre::find($genre->id);
-        $this->assertNull($not_deleted_genre);
+        $notDeletedGenre = Genre::find($genre->id);
+        $this->assertNull($notDeletedGenre);
 
-        $deleted_genre = Genre::withTrashed()->find($genre->id);
-        $this->assertNotEquals(null, $deleted_genre->deleted_at);
+        $deletedGenre = Genre::withTrashed()->find($genre->id);
+        $this->assertNotEquals(null, $deletedGenre->deleted_at);
         
         $genre->restore();
         $this->assertNotNull(Genre::find($genre->id));

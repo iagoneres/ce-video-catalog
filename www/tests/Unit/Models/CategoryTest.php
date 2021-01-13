@@ -42,9 +42,9 @@ class CategoryTest extends TestCase
     public function testIfUseTraits()
     {
         $traits = [HasFactory::class];
-        $category_traits = array_keys(class_uses(Category::class));
+        $categoryTraits = array_keys(class_uses(Category::class));
         
-        $this->assertEquals($traits, $category_traits);
+        $this->assertEquals($traits, $categoryTraits);
     }
 
     public function testIncrementingAttribute()
@@ -60,10 +60,10 @@ class CategoryTest extends TestCase
 
     public function testDatesAttribute()
     {
-        $category_dates = ['created_at', 'updated_at', 'deleted_at'];
+        $categoryDates = ['created_at', 'updated_at', 'deleted_at'];
 
-        $this->assertEqualsCanonicalizing($category_dates, $this->category->getDates());
-        $this->assertCount(count($category_dates), $this->category->getDates());
+        $this->assertEqualsCanonicalizing($categoryDates, $this->category->getDates());
+        $this->assertCount(count($categoryDates), $this->category->getDates());
     }
 
 }
