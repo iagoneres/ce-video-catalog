@@ -1,10 +1,10 @@
 steps:
 
 - id: "Running docker-compose"
-  name: 'docker-compose:1.24.0'
-  args: ['-f', 'docker-compose.prod.yaml', 'up', '-d']
+  name: 'docker/compose:1.23.1'
+  args: ['-f', 'docker-compose.ci.yaml', 'up', '-d']
 
-- id: "Chown in /var/www"
+- id: "Adding permission"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-u', 'root', '-t', 'app', 'chow', '-R', 'www-data:www-data', '/var/www']
 
