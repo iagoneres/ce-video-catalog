@@ -28,6 +28,6 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
 
-- id: "Running key:generate"
+- id: "Running PHPunit tests"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'php', '/var/www/vendo/bin/phpunit', '-c', '/var/www/phpunit.xml']
