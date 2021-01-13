@@ -1,0 +1,33 @@
+steps:
+
+- id: "Running docker-compose"
+  name: 'gcr.io/$PROJECT_ID/docker-compose:1.24.0'
+  args: ['-f', 'docker-compose.prod.yaml', 'up', '-d']
+
+- id: "Chown in /var/www"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-u', 'root', '-t', 'app', 'chow', '-R', 'www-data:www-data', '/var/www']
+
+- id: "Running composer"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'composer', 'install']
+
+- id: "Copying .env"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'cp', 'env.example', '.env']
+
+- id: "Copying .env.testing"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'cp', 'env.testing.example', '.env.testing']
+
+- id: "Running key:generate"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
+
+- id: "Running migrations"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
+
+- id: "Running key:generate"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/vendo/bin/phpunit', '-c', '/var/www/phpunit.xml']
