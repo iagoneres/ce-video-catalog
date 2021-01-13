@@ -6,28 +6,28 @@ steps:
 
 - id: "Adding permission"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-u', 'root', '-t', 'app', 'chow', '-R', 'www-data:www-data', '/var/www']
+  args: ['exec', '-u', 'root', '-t', 'video-catalog-app', 'chown', '-R', 'www-data:www-data', '/var/www']
 
 - id: "Running composer"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'composer', 'install']
+  args: ['exec', '-t', 'video-catalog-app', 'composer', 'install']
 
 - id: "Copying .env"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'cp', 'env.example', '.env']
+  args: ['exec', '-t', 'video-catalog-app', 'cp', 'env.example', '.env']
 
 - id: "Copying .env.testing"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'cp', 'env.testing.example', '.env.testing']
+  args: ['exec', '-t', 'video-catalog-app', 'cp', 'env.testing.example', '.env.testing']
 
 - id: "Running key:generate"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'key:generate']
 
 - id: "Running migrations"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'migrate']
 
 - id: "Running PHPunit tests"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'app', 'php', '/var/www/vendo/bin/phpunit', '-c', '/var/www/phpunit.xml']
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/vendo/bin/phpunit', '-c', '/var/www/phpunit.xml']
