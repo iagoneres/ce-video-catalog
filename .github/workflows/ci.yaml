@@ -23,10 +23,10 @@ jobs:
         run: docker exec -t video-catalog-app composer install
 
       - name: Copy env
-        run: docker exec -t video-catalog-app cp env.example .env
+        run: docker exec -t video-catalog-app cp .env.example .env
 
       - name: Copy .env.testing
-        run: docker exec -t video-catalog-app cp env.testing.example .env.testing
+        run: docker exec -t video-catalog-app cp .env.testing.example .env.testing
 
       - name: Run key:generate
         run: docker exec -t video-catalog-app php /var/www/artisan key:generate
