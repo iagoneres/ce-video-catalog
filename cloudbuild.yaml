@@ -10,7 +10,7 @@ steps:
 
 - id: "Running composer"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'video-catalog-app', 'composer', 'install']
+  args: ['exec', '-t', 'video-catalog-app', 'composer', 'install','--no-scripts']
 
 - id: "Copying .env"
   name: 'gcr.io/cloud-builders/docker'
