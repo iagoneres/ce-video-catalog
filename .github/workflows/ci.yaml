@@ -16,7 +16,7 @@ jobs:
       - name: Check running containers
         run: docker ps -a
 
-      - name: Run migrations
-        run: docker exec video-catalog-app vendor/bin/phpunit tests/
+      - name: Run PHPunit tests
+        run: docker exec video-catalog-app php artisan tests
       
    
