@@ -8,9 +8,13 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-u', 'root', '-t', 'video-catalog-app', 'chown', '-R', 'www-data:www-data', '/var/www']
 
+- id: "Removing composer.lock"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-u', 'root', '-t', 'video-catalog-app', 'rm','composer.lock']
+
 - id: "Running composer"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'video-catalog-app', 'composer', 'install','--no-scripts']
+  args: ['exec', '-u', 'root', '-t', 'video-catalog-app', 'composer', 'install','--no-scripts']
 
 - id: "Copying .env"
   name: 'gcr.io/cloud-builders/docker'

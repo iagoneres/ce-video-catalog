@@ -33,7 +33,9 @@ jobs:
       - name: Run migrations
         run: docker exec -t video-catalog-app php /var/www/artisan migrate
 
-      - name: Run PHPunit
-        run: docker exec -t video-catalog-app php artisan test
+      - name: Run PHPunit Feature tests
+        run: docker exec -t video-catalog-app php artisan test --testsuite=Feature
       
+      - name: Run PHPunit Unit tests
+        run: docker exec -t video-catalog-app php artisan test --testsuite=Unit
    
