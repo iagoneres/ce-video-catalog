@@ -24,13 +24,13 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'video-catalog-app', 'cp', '.env.testing.example', '.env.testing']
 
-- id: "Running migrations"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'migrate']
-  
 - id: "Running key:generate"
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'key:generate']
+
+- id: "Running migrations"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'migrate']
 
 - id: "Running PHPunit"
   name: 'gcr.io/cloud-builders/docker'

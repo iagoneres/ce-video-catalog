@@ -18,6 +18,9 @@ jobs:
       - name: Add permission
         run: docker exec -u root -t video-catalog-app chown -R www-data:www-data /var/www
 
+      - name: Remove composer.lock
+        run: docker exec -u root -t video-catalog-app rm composer.lock
+
       - name: Run composer
         run: docker exec -t video-catalog-app composer install --no-scripts
 
