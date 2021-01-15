@@ -14,17 +14,21 @@ jobs:
 
       - name: Add permission
         run: docker exec -u root -t video-catalog-app chown -R www-data:www-data /var/www
-      
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '20s'
 
       - name: Check running containers
         run: docker ps -a
 
       - name: Check logs
         run: docker logs -t video-catalog-app
+      
+      - name: Run composer
+        run: docker exec -t video-catalog-app composer install --no-scripts
+
+      - name: Copy env
+        run: docker exec -t video-catalog-app cp .env.example .env
+
+      - name: Copy .env.testing
+        run: docker exec -t video-catalog-app cp .env.testing.example .env.testing
 
       - name: Run key:generate
         run: docker exec -t video-catalog-app php /var/www/artisan key:generate
