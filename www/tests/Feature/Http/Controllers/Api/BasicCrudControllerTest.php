@@ -3,19 +3,12 @@
 namespace Tests\Feature\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BasicCrudController;
-use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use ReflectionMethod;
 use Tests\Stubs\Controllers\CategoryControllerStub;
 use Tests\Stubs\Models\CategoryStub;
 use Tests\TestCase;
-use Tests\Traits\TestValidations;
-use Tests\Traits\TestSaves;
-
-use function Symfony\Component\Translation\t;
 
 class BasicCrudControllerTest extends TestCase
 {
@@ -67,6 +60,46 @@ class BasicCrudControllerTest extends TestCase
         $this->assertEquals(CategoryStub::find(1)->toArray(), $obj->toArray());
     }
 
+    public function testShow()
+    {
+        $category = CategoryStub::create(['name' => 'test name', 'description' => 'test description']);
+        $category->refresh();
+
+        $result = $this->controller->show($category->id);
+        $this->assertEquals(CategoryStub::find(1)->toArray(), $result->toArray());
+        
+    }
+
+    public function testUpdate()
+    {
+        $category = CategoryStub::create(['name' => 'test name', 'description' => 'test description']);
+        $category->refresh();
+
+        $request = \Mockery::mock(Request::class);
+        $request->shouldReceive('all')
+            ->once()
+            ->andReturn(['name' => 'test_name', 'description' => 'test_description']);
+        
+        $result = $this->controller->update($request, $category->id);
+
+        $this->assertEquals(CategoryStub::find(1)->toArray(), $result->toArray());
+    }
+
+    public function testDestroy()
+    {
+        $category = CategoryStub::create(['name' => 'test name', 'description' => 'test description']);
+        $category->refresh();
+
+        $response = $this->controller->destroy($category->id);
+
+        $this->createTestResponse($response)
+            ->assertStatus(204);
+        
+        $this->assertCount(0, CategoryStub::all());
+
+
+    }
+    
     public function testIfFindOrFailFetchModel()
     {
         $category = CategoryStub::create(['name' => 'test name', 'description' => 'test description']);

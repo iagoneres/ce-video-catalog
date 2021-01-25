@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use tidy;
 
 abstract class BasicCrudController extends Controller
 {
@@ -22,36 +21,36 @@ abstract class BasicCrudController extends Controller
     {
        $validatedData = $this->validate($request, $this->storeRules());
        $obj = $this->model()::create($validatedData);
+
        return $obj->refresh();
     }
 
-    protected function findOrFail($id){
+    public function show($id)
+    {
+        return $this->findOrFail($id);
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $obj = $this->findOrFail($id);
+        $validatedData = $this->validate($request, $this->updateRules());
+        $obj->update($validatedData);
+        
+        return $obj;
+    }
+
+    public function destroy($id)
+    {
+        $obj = $this->findOrFail($id);
+        $obj->delete();
+
+        return response()->noContent();
+    }
+
+    protected function findOrFail($id)
+    {
         $model = $this->model();
         $keyName = (new $model)->getRouteKeyName();
         return $this->model()::where($keyName, $id)->firstOrFail();
     }
-
-
-    // public function store(CategoryStoreRequest $request)
-    // {
-    //     $category = Category::create($request->all());
-    //     return $category->refresh();
-    // }
-
-    // public function show(Category $category)
-    // {
-    //     return $category;
-    // }
-
-    // public function update(CategoryUpdateRequest $request, Category $category)
-    // {
-    //     $category->update($request->all());
-    //     return $category;
-    // }
-
-    // public function destroy(Category $category)
-    // {
-    //     $category->delete();
-    //     return response()->noContent();
-    // }
 }

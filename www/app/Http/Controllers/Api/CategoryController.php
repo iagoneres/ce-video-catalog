@@ -2,39 +2,32 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryStoreRequest;
-use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 
-class CategoryController extends Controller
+class CategoryController extends BasicCrudController
 {
 
-    public function index()
+    protected function model()
     {
-        return Category::all();
+        return Category::class;
     }
 
-    public function store(CategoryStoreRequest $request)
+    protected function storeRules()
     {
-        $category = Category::create($request->all());
-        return $category->refresh();
+        return [
+            'name'        => 'required|max:255',
+            'description' => 'nullable',
+            'is_active'   => 'boolean'
+        ];
     }
 
-    public function show(Category $category)
+    protected function updateRules()
     {
-        return $category;
-    }
-    
-    public function update(CategoryUpdateRequest $request, Category $category)
-    {
-        $category->update($request->all());
-        return $category;
+        return [
+            'name'        => 'required|max:255',
+            'description' => 'nullable',
+            'is_active'   => 'boolean'
+        ];
     }
 
-    public function destroy(Category $category)
-    {
-        $category->delete();
-        return response()->noContent();
-    }
 }
