@@ -28,10 +28,9 @@ class CategoryControllerTest extends TestCase
 
     public function testShow()
     {
-        $category = Category::factory()->create();
-        $response = $this->json('GET', route('categories.show', ['category' => $category->id]));
-
-        $response->assertStatus(200)->assertJson($category->toArray());
+        $response = $this->json('GET', route('categories.show', ['category' => $this->category->id]));
+        $response->assertStatus(200)
+            ->assertJson($this->category->toArray());
     }
 
     public function testInvalidName()
@@ -55,8 +54,8 @@ class CategoryControllerTest extends TestCase
     public function testStore()
     {
         $data = ['name' => 'test'];
-        $db_data = $data + ['description' => null, 'is_active' => true, 'deleted_at' => null];
-        $response = $this->assertStore($data, $db_data);
+        $dbData = $data + ['description' => null, 'is_active' => true, 'deleted_at' => null];
+        $response = $this->assertStore($data, $dbData);
         $response->assertJsonStructure([
             'created_at', 'updated_at'
         ]);
@@ -73,13 +72,13 @@ class CategoryControllerTest extends TestCase
         ]);
 
         $data = ['name' => 'test', 'description' => 'description updated', 'is_active' => true];
-        $data_db = $data + ['deleted_at' => null];
-        $response = $this->assertUpdate($data, $data_db);
+        $dbData = $data + ['deleted_at' => null];
+        $response = $this->assertUpdate($data, $dbData);
         $response->assertJsonStructure(['created_at', 'updated_at']);
 
         $data = ['name' => 'test', 'description' => '', 'is_active' => true];
-        $data_db = array_merge($data, ['description' => null]);
-        $response = $this->assertUpdate($data, $data_db);
+        $dbData = array_merge($data, ['description' => null]);
+        $response = $this->assertUpdate($data, $dbData);
 
         $data['description'] = 'test';
         $response = $this->assertUpdate($data, $data);
@@ -102,17 +101,17 @@ class CategoryControllerTest extends TestCase
         $response->assertStatus(404);
     }
 
-    private function routeStore()
+    protected function routeStore()
     {
         return route('categories.store');
     }
 
-    private function routeUpdate()
+    protected function routeUpdate()
     {
         return route('categories.update', ['category' => $this->category->id]);
     }
 
-    private function model()
+    protected function model()
     {
         return Category::class;
     }

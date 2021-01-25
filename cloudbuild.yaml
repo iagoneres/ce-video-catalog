@@ -1,0 +1,33 @@
+steps:
+
+- id: "Running docker-compose"
+  name: 'docker/compose:1.23.1'
+  args: ['-f', 'docker-compose.ci.yaml', 'up', '-d']
+
+- id: "Adding permission"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-u', 'root', '-t', 'video-catalog-app', 'chown', '-R', 'www-data:www-data', '/var/www']
+
+- id: "Running composer"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-u', 'root', '-t', 'video-catalog-app', 'composer', 'install','--no-scripts']
+
+- id: "Copying .env"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'video-catalog-app', 'cp', '.env.example', '.env']
+
+- id: "Copying .env.testing"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'video-catalog-app', 'cp', '.env.testing.example', '.env.testing']
+
+- id: "Running key:generate"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'key:generate']
+
+- id: "Running migrations"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/artisan', 'migrate']
+
+- id: "Running PHPunit"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'video-catalog-app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']

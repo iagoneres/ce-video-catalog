@@ -23,9 +23,9 @@ class GenreTest extends TestCase
     public function testIfUseTraits()
     {
         $traits = [HasFactory::class];
-        $genre_traits = array_keys(class_uses(Genre::class));
+        $genreTraits = array_keys(class_uses(Genre::class));
         
-        $this->assertEquals($traits, $genre_traits);
+        $this->assertEquals($traits, $genreTraits);
     }
 
     public function testIncrementingAttribute()
@@ -41,9 +41,9 @@ class GenreTest extends TestCase
 
     public function testDatesAttribute()
     {
-        $genre_dates = ['created_at', 'updated_at', 'deleted_at'];
+        $genreDates = ['created_at', 'updated_at', 'deleted_at'];
 
-        $this->assertEqualsCanonicalizing($genre_dates, $this->genre->getDates());
-        $this->assertCount(count($genre_dates), $this->genre->getDates());
+        $this->assertEqualsCanonicalizing($genreDates, $this->genre->getDates());
+        $this->assertCount(count($genreDates), $this->genre->getDates());
     }
 }
