@@ -1,6 +1,6 @@
-name: PR Workflow
+name: PR Test Workflow
 
-on: [push]
+on: [pull_request]
 
 jobs:
   php-unit:
