@@ -26,13 +26,13 @@ class CastMemberControllerTest extends TestCase
     
     public function testIndex()
     {
-        $response = $this->json('GET', route('cast-member.index'));
+        $response = $this->json('GET', route('cast-members.index'));
         $response->assertStatus(200)->assertJson([$this->castMember->toArray()]);
     }
 
     public function testShow()
     {
-        $response = $this->json('GET', route('cast-member.show', ['cast_member' => $this->castMember->id]));
+        $response = $this->json('GET', route('cast-members.show', ['cast_member' => $this->castMember->id]));
         $response->assertStatus(200)
             ->assertJson($this->castMember->toArray());
     }
@@ -80,26 +80,26 @@ class CastMemberControllerTest extends TestCase
 
     public function testDestroy()
     {
-        $response = $this->json('DELETE', route('cast-member.destroy', ['cast_member' => $this->castMember->id]));
+        $response = $this->json('DELETE', route('cast-members.destroy', ['cast_member' => $this->castMember->id]));
         $response->assertStatus(204);
 
-        $response = $this->json('GET', route('cast-member.show', ['cast_member' => $this->castMember->id]));
+        $response = $this->json('GET', route('cast-members.show', ['cast_member' => $this->castMember->id]));
         $response->assertStatus(404);
 
         $this->assertNotNull(CastMember::withTrashed()->find($this->castMember->id));
 
-        $response = $this->json('DELETE', route('cast-member.destroy', ['cast_member' => $this->castMember->id]));
+        $response = $this->json('DELETE', route('cast-members.destroy', ['cast_member' => $this->castMember->id]));
         $response->assertStatus(404);
     }
 
     protected function routeStore()
     {
-        return route('cast-member.store');
+        return route('cast-members.store');
     }
 
     protected function routeUpdate()
     {
-        return route('cast-member.update', ['cast_member' => $this->castMember->id]);
+        return route('cast-members.update', ['cast_member' => $this->castMember->id]);
     }
 
     protected function model()
