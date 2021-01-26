@@ -10,12 +10,12 @@
 ### Entities
 - [x] Category
 - [x] Genre
-- [ ] CastMember
+- [X] CastMember
 
 ### Feature Tests
 - [X] Category
 - [X] Genre
-- [ ] CastMember
+- [X] CastMember
 
 ### Unit Tests
 - [X] Category
