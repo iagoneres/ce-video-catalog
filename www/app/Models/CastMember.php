@@ -8,6 +8,9 @@ class CastMember extends AppModel
 {
     use HasFactory;
 
+    const TYPE_DIRECTOR = 1;
+    const TYPE_ACTOR = 2;
+
     protected $fillable = [
         'name',
         'type'
@@ -17,7 +20,8 @@ class CastMember extends AppModel
         'deleted_at'
     ];
 
-    const TYPE_DIRECTOR = 1;
-    const TYPE_ACTOR = 2;
+    protected $casts = [
+        'type' => 'integer'
+    ];
 
 }
