@@ -26,3 +26,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('categories', CategoryController::class)->except(['create', 'edit']);
 Route::resource('genres', GenreController::class)->except(['create', 'edit']);
 Route::resource('cast-members', CastMemberController::class)->except(['create', 'edit']);
+Route::resource('videos', VideoController::class)->except(['create', 'edit']);
