@@ -14,17 +14,27 @@ class VideoController extends BasicCrudController
 
     protected function storeRules()
     {
-        // return [
-        //     'name'        => 'required|max:255',
-        //     'is_active'   => 'boolean'
-        // ];
+        $array = implode(',', Video::RATING_LIST);
+        return [
+            "title"  => "required|max:255",
+            "description" => "required",
+            "release_year" => "required|date_format:Y",
+            "new_release" => "boolean",
+            "rating"  => "required|in:{$array}",
+            "duration" => "required|integer"
+        ];
     }
 
     protected function updateRules()
     {
-        // return [
-        //     'name'        => 'required|max:255',
-        //     'is_active'   => 'boolean'
-        // ];
+        $array = implode(',', Video::RATING_LIST);
+        return [
+            "title"  => "required|max:255",
+            "description" => "required",
+            "release_year" => "required|date_format:Y",
+            "new_release" => "boolean",
+            "rating"  => "required|in:{$array}",
+            "duration" => "required|integer"
+        ];
     }
 }
