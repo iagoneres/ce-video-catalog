@@ -15,8 +15,8 @@ class CategoryTest extends TestCase
 
     public function testCreateValidUuid()
     {
-        $category_data = ['name' => 'test'];
-        $category = Category::create($category_data);
+        $data = ['name' => 'test'];
+        $category = Category::create($data);
         $category->refresh();
 
         $this->assertTrue(Str::isUuid($category->id));
@@ -24,11 +24,11 @@ class CategoryTest extends TestCase
 
     public function testCreateDefaultFields()
     {
-        $category_data = ['name' => 'test'];
-        $category = Category::create($category_data);
+        $data = ['name' => 'test'];
+        $category = Category::create($data);
         $category->refresh();
 
-        $this->assertEquals($category_data['name'], $category->name);
+        $this->assertEquals($data['name'], $category->name);
         $this->assertNull($category->description);
         $this->assertTrue($category->is_active);
         $this->assertNull($category->deleted_at);
@@ -36,29 +36,29 @@ class CategoryTest extends TestCase
 
     public function testCreatePersonalizedDescription()
     {
-        $category_data = ['name' => 'test_1', 'description' => null];
-        $category = Category::create($category_data);
+        $data = ['name' => 'test_1', 'description' => null];
+        $category = Category::create($data);
         $category->refresh();
         
         $this->assertNull($category->description);
 
-        $category_data = ['name' => 'test_2', 'description' => 'Test description'];
-        $category = Category::create($category_data);
+        $data = ['name' => 'test_2', 'description' => 'Test description'];
+        $category = Category::create($data);
         $category->refresh();
         
-        $this->assertEquals($category_data['description'], $category->description);
+        $this->assertEquals($data['description'], $category->description);
     }
     
     public function testCreatePersonalizedIsActive()
     {
-        $category_data = ['name' => 'test_1', 'is_active' => false];
-        $category = Category::create($category_data);
+        $data = ['name' => 'test_1', 'is_active' => false];
+        $category = Category::create($data);
         $category->refresh();
         
         $this->assertFalse($category->is_active);
 
-        $category_data = ['name' => 'test_2', 'is_active' => true];
-        $category = Category::create($category_data);
+        $data = ['name' => 'test_2', 'is_active' => true];
+        $category = Category::create($data);
         $category->refresh();
         
         $this->assertTrue($category->is_active);
@@ -69,10 +69,10 @@ class CategoryTest extends TestCase
         Category::factory()->count(1)->create();
         $fields = ['id', 'name', 'description', 'is_active', 'created_at', 'updated_at', 'deleted_at'];
         $categories = Category::all();
-        $category_key = array_keys($categories->first()->getAttributes());
+        $categoryKey = array_keys($categories->first()->getAttributes());
 
         $this->assertCount(1, $categories);
-        $this->assertEqualsCanonicalizing($fields, $category_key);
+        $this->assertEqualsCanonicalizing($fields, $categoryKey);
     }
 
     public function testUpdate()
@@ -82,14 +82,14 @@ class CategoryTest extends TestCase
             'is_active' => false
         ])->first();
 
-        $update_data = [
+        $data = [
             'name' => 'test name updated',
             'description' => 'test description updated',
             'is_active' => true
         ];
-        $category->update($update_data);
+        $category->update($data);
 
-        foreach($update_data as $key => $value) {
+        foreach($data as $key => $value) {
             $this->assertEquals($value, $category->{$key});
         }
     }
@@ -99,11 +99,11 @@ class CategoryTest extends TestCase
         $category = Category::factory()->create();
         $this->assertTrue($category->delete());
 
-        $not_deleted_category = Category::find($category->id);
-        $this->assertNull($not_deleted_category);
+        $notDeletedCategory = Category::find($category->id);
+        $this->assertNull($notDeletedCategory);
 
-        $deleted_category = Category::withTrashed()->find($category->id);
-        $this->assertNotEquals(null, $deleted_category->deleted_at);
+        $deletedCategory = Category::withTrashed()->find($category->id);
+        $this->assertNotEquals(null, $deletedCategory->deleted_at);
 
         $category->restore();
         $this->assertNotNull(Category::find($category->id));

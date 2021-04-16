@@ -10,14 +10,17 @@
 ### Entities
 - [x] Category
 - [x] Genre
+- [X] CastMember
 
 ### Feature Tests
 - [X] Category
 - [X] Genre
+- [X] CastMember
 
 ### Unit Tests
 - [X] Category
 - [X] Genre
+- [ ] CastMember
 
 ### Running the tests
 
@@ -28,8 +31,11 @@
 # However, if you want to choose one of them, you can use the  --testsuite argument to specify which test you want to run.
 /var/www $ php artisan test --testsuite=Feature
 
-# And if you want to stop the tests when you found one error, you can use the --stop-on-failure argument.
+# If you want to stop the tests when you found one error, you can use the --stop-on-failure argument.
 /var/www $ php artisan test --testsuite=Feature --stop-on-failure
+
+# If you want to filter the tests, you can use the --filter argument.
+/var/www $ php artisan test --filter CategoryControllerTest --stop-on-failure
 
 # If you need something more specific, you can search for phpUnit command arguments, these arguments may also be passed to the Artisan test command.
 ```

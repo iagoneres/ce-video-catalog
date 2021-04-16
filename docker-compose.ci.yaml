@@ -4,11 +4,9 @@ services:
 
   app:
     build:
-      dockerfile: .docker/app/Dockerfile
+      dockerfile: .docker/app/Dockerfile.ci
       context: .
-      target: dev
     container_name: video-catalog-app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 40s /entrypoint.sh
     environment:
       - _DB_HOST=db
       - _DB_DATABASE=ce_video_catalog
